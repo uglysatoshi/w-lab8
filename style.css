@@ -1,0 +1,33 @@
+#board {
+    width: 544px;
+    height: 544px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    height: 64px;
+    width: 64px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beige {
+    background-color: antiquewhite;
+    border-radius: 10px;
+    border: azure;
+}
+
+.brown {
+    background-color: chocolate;
+}
+
+.black {
+    fill: #313131;
+}
+
+.white {
+    fill: #a2a2a2;
+}
