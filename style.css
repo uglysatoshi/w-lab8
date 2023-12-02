@@ -1,3 +1,27 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.board-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: darkslategray;
+    padding: 20px;
+    border-radius: 30px;
+}
+
+.board-cover p {
+    font-family: 'Roboto Slab', serif;
+    color: wheat;
+    font-size: 30px;
+}
+
+
 #board {
     width: 544px;
     height: 544px;
@@ -9,13 +33,29 @@
     height: 64px;
     width: 64px;
     margin: 2px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.square svg {
+    position: relative;
+    z-index: -9;
+}
+
+path {
+    position: relative;
+    z-index: -10;
+}
+
+.figure {
+    position: relative;
+    z-index: 9;
+}
+
 .beige {
-    background-color: antiquewhite;
+    background-color: wheat;
     border-radius: 10px;
     border: azure;
 }
@@ -29,5 +69,5 @@
 }
 
 .white {
-    fill: #a2a2a2;
+    fill: #bdbebd;
 }

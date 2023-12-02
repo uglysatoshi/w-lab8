@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <title>w-lab8</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="board"></div>
-    <p> Move of <span id="player"></span>. </p>
-    <p id="information"></p>
+    <div class="container">
+        <div class="board-cover">
+            <div id="board"></div>
+            <p> Move of <span id="player"></span>. </p>
+        </div>
+        <p id="information"></p>
+    </div>
 
     <script src="figures.js"></script>
     <script src="app.js"></script>
