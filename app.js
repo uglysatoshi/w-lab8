@@ -50,8 +50,8 @@ changePlayer(); // Изменяем игрока и индексы, чтобы �
 const allSquares = document.querySelectorAll(".square") // Записываем массив всех ячеек
 
 // Информация о неправильном ходе
-function info() {
-    infoDisplay.textContent = "This move isn't valid!";
+function info(str) {
+    infoDisplay.textContent = str;
     setTimeout(() => infoDisplay.textContent = "", 2000);
 }
 
@@ -86,15 +86,17 @@ function dragDrop (event) {
         if(takenByOpponent && valid) {
             event.target.parentNode.append(draggedFigure);
             event.target.remove();
+            checkForWin();
             changePlayer();
             return;
         }
         if(taken && !takenByOpponent) {
-            info();
+            info("Invalid move!");
             return;
         }
         if(valid) {
             event.target.append(draggedFigure);
+            checkForWin();
             changePlayer();
         }
     }
@@ -118,10 +120,11 @@ function validateMove(target) {
                 startID + width - 1 === targetID && document.querySelector(`[square-id="${startID + width - 1}"]`).firstChild ||
                 startID + width + 1 === targetID && document.querySelector(`[square-id="${startID + width + 1}"]`).firstChild
             ) return true;
-            else info();
+            else info("Invalid move!");
             break;
         case 'knight':
             if (
+
                 startID + width * 2 - 1 === targetID ||
                 startID + width * 2 + 1 === targetID ||
                 startID + width - 2 === targetID ||
@@ -131,7 +134,7 @@ function validateMove(target) {
                 startID - width - 2 === targetID ||
                 startID - width + 2 === targetID
             ) return true;
-            else info();
+            else info("Invalid move!");
             break;
         case 'bishop':
             const bishopMove = Math.abs(targetID - startID);
@@ -145,12 +148,12 @@ function validateMove(target) {
                     const square = document.querySelector(`[square-id="${i}"]`);
                     // Если ячейка содержит фигуру
                     if (square.firstChild) {
-                        info();
+                        info("Invalid move!");
                         return false;
                     }
                 }
                 return true;
-            } else info();
+            } else info("Invalid move!");
             break;
         case 'rook':
             const rookMove = Math.abs(targetID - startID);
@@ -164,12 +167,12 @@ function validateMove(target) {
                     const square = document.querySelector(`[square-id="${i}"]`);
                     // Если ячейка содержит фигуру
                     if (square.firstChild) {
-                        info();
+                        info("Invalid move!");
                         return false;
                     }
                 }
                 return true;
-            } else info();
+            } else info("Invalid move!");
             break;
         case 'queen':
             const queenMove = Math.abs(targetID - startID);
@@ -185,12 +188,12 @@ function validateMove(target) {
                     const square = document.querySelector(`[square-id="${i}"]`);
                     // Если ячейка содержит фигуру
                     if (square.firstChild) {
-                        info();
+                        info("Invalid move!");
                         return false;
                     }
                 }
                 return true;
-            } else info();
+            } else info("Invalid move!");
             break;
         case 'king':
             if (
@@ -203,7 +206,7 @@ function validateMove(target) {
                 startID - width - 1 === targetID ||
                 startID - width + 1 === targetID
             ) return true;
-            else info();
+            else info("Invalid move!");
             break;
     }
 }
@@ -233,4 +236,20 @@ function revertIDs() {
     allSquares.forEach((square, i) =>
         square.setAttribute('square-id',  i)
     );
+}
+
+// Простая реализация победы, при уничтожении короля
+// возможно в будущем реализую шах и мат.
+function checkForWin() {
+    const kings = Array.from(document.querySelectorAll('#king'));
+    if (!kings.some(king => king.classList.contains('white'))) {
+        info("Black player wins!");
+        const allSquares = document.querySelectorAll('.square');
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false));
+    }
+    if (!kings.some(king => king.classList.contains('black'))) {
+        info("White player wins!");
+        const allSquares = document.querySelectorAll('.square');
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false));
+    }
 }
